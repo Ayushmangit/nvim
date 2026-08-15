@@ -4,6 +4,10 @@
 -- See the kickstart.nvim README for more information
 return {
   {
+    'christoomey/vim-tmux-navigator',
+    lazy = false,
+  },
+  {
     'barrett-ruth/live-server.nvim',
     build = 'npm install -g live-server',
     config = function()

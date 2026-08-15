@@ -189,11 +189,11 @@ vim.keymap.set(
   { desc = 'Exit terminal mode' }
 )
 
--- TIP: Disable arrow keys in normal mode
-vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
-vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
-vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
-vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+-- -- TIP: Disable arrow keys in normal mode
+-- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
+-- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
+-- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
+-- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
@@ -1082,7 +1082,7 @@ require('lazy').setup({
     priority = 1000,
     config = function()
       require('catppuccin').setup {
-        flavour = 'frappe', -- or "latte", "macchiato", "frappe"
+        flavour = 'macchiato', -- or "latte", "macchiato", "frappe"
         transparent_background = false,
         -- optionally you can configure integrations:
         integrations = {
@@ -1246,3 +1246,60 @@ require('lazy').setup({
 -- vim: ts=2 sts=2 sw=2 et
 vim.keymap.set('n', '<leader>cd', vim.cmd.Ex)
 vim.opt.tabstop = 4
+vim.opt.guicursor = 'a:block'
+--
+-- Move current line
+vim.keymap.set(
+  'n',
+  '<A-j>',
+  ':m .+1<CR>==',
+  { desc = 'Move line down', silent = true }
+)
+vim.keymap.set(
+  'n',
+  '<A-k>',
+  ':m .-2<CR>==',
+  { desc = 'Move line up', silent = true }
+)
+
+-- Move selected lines
+vim.keymap.set(
+  'v',
+  '<A-j>',
+  ":m '>+1<CR>gv=gv",
+  { desc = 'Move selection down', silent = true }
+)
+vim.keymap.set(
+  'v',
+  '<A-k>',
+  ":m '<-2<CR>gv=gv",
+  { desc = 'Move selection up', silent = true }
+)
+
+vim.keymap.set(
+  'n',
+  '<C-h>',
+  '<cmd>TmuxNavigateLeft<CR>',
+  { desc = 'Move to left tmux pane' }
+)
+
+vim.keymap.set(
+  'n',
+  '<C-l>',
+  '<cmd>TmuxNavigateRight<CR>',
+  { desc = 'Move to right tmux pane' }
+)
+
+vim.keymap.set(
+  'n',
+  '<C-j>',
+  '<cmd>TmuxNavigateDown<CR>',
+  { desc = 'Move to lower tmux pane' }
+)
+
+vim.keymap.set(
+  'n',
+  '<C-k>',
+  '<cmd>TmuxNavigateUp<CR>',
+  { desc = 'Move to upper tmux pane' }
+)
