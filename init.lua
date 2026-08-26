@@ -735,6 +735,17 @@ require('lazy').setup({
           --
           -- When you move your cursor, the highlights will be cleared (the second autocommand).
           local client = vim.lsp.get_client_by_id(event.data.client_id)
+          if client and client.name == 'gopls' then
+            map('<leader>ly', '<cmd>GoModTidy<CR>', 'Go Mod Tidy')
+            map('<leader>lc', '<cmd>GoCoverage<CR>', 'Go Test Coverage')
+            map('<leader>lt', '<cmd>GoTest<CR>', 'Go Test')
+            map('<leader>lR', '<cmd>GoRun<CR>', 'Go Run')
+            map('<leader>ie', '<cmd>GoIfErr<CR>', 'Go: Add if err')
+
+            map('<leader>dT', function()
+              require('dap-go').debug_test()
+            end, 'Go Debug Test')
+          end
           if
             client
             and client_supports_method(
@@ -1380,7 +1391,3 @@ vim.keymap.set(
   '<cmd>TmuxNavigateUp<CR>',
   { desc = 'Move to upper tmux pane' }
 )
-
-vim.keymap.set('n', '<leader>ie', '<cmd>GoIfErr<CR>', {
-  desc = 'Go: Add if err',
-})
