@@ -1380,3 +1380,7 @@ vim.keymap.set(
   '<cmd>TmuxNavigateUp<CR>',
   { desc = 'Move to upper tmux pane' }
 )
+
+vim.keymap.set('n', '<leader>ie', '<cmd>GoIfErr<CR>', {
+  desc = 'Go: Add if err',
+})
