@@ -73,7 +73,9 @@ return {
       'neovim/nvim-lspconfig',
       'nvim-treesitter/nvim-treesitter',
     },
-    opts = {},
+    opts = {
+      lsp_codelens = false,
+    },
     config = function(_, opts)
       require('go').setup(opts)
     end,
