@@ -841,7 +841,25 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         clangd = {},
-        -- gopls = {},
+        gopls = {},
+        -- Tailwind CSS
+        tailwindcss = {
+          filetypes = {
+            'html',
+            'css',
+            'scss',
+            'javascript',
+            'javascriptreact',
+            'typescript',
+            'typescriptreact',
+          },
+        },
+
+        -- SQL
+        sqls = {},
+
+        -- Docker
+        dockerls = {},
         -- pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -885,13 +903,38 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+
+        --go
+        'delve',
+        'goimports',
+        'gofumpt',
+        'golangci-lint',
+        'golangci-lint-langserver',
+        'impl',
+        'gomodifytags',
+        'iferr',
+        'gotests',
+        'gotestsum',
+        -- JavaScript / TypeScript
+        'prettier',
+        'prettierd',
+        'eslint_d',
+
+        -- SQL
+        'sql-formatter',
+
+        -- Docker
+        'hadolint',
+
+        -- CSS / Tailwind
+        'prettier',
       })
       require('mason-tool-installer').setup {
         ensure_installed = ensure_installed,
       }
 
       require('mason-lspconfig').setup {
-        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
+        ensure_installed = {},
         automatic_installation = false,
         handlers = {
           function(server_name)
@@ -946,14 +989,42 @@ require('lazy').setup({
         end
       end,
       formatters_by_ft = {
+        -- Lua
         lua = { 'stylua' },
-        -- Conform can also run multiple formatters sequentially
+
+        -- Go
+        go = { 'gofumpt', 'goimports' },
+
+        -- Python
         python = { 'isort', 'black' },
-        --
-        -- You can use 'stop_after_first' to run the first available formatter from the list
+
+        -- JavaScript / TypeScript
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        typescript = { 'prettierd', 'prettier', stop_after_first = true },
+
+        -- React
+        javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+        typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+
+        -- CSS
+        css = { 'prettierd', 'prettier', stop_after_first = true },
+        scss = { 'prettierd', 'prettier', stop_after_first = true },
+
+        -- HTML
+        html = { 'prettierd', 'prettier', stop_after_first = true },
+
+        -- JSON
+        json = { 'prettierd', 'prettier', stop_after_first = true },
+        jsonc = { 'prettierd', 'prettier', stop_after_first = true },
+
+        -- SQL
+        sql = { 'sql_formatter' },
+
+        -- C / C++
         cpp = { 'clang_format' },
         c = { 'clang_format' },
+
+        -- Java
         java = { 'google_java_format' },
       },
     },
@@ -1163,6 +1234,13 @@ require('lazy').setup({
         'javascript',
         'typescript',
         'tsx',
+        'go',
+        'gomod',
+        'css',
+        'scss',
+        'html',
+        'json',
+        'dockerfile',
       },
       -- Autoinstall languages that are not installed
       auto_install = true,
