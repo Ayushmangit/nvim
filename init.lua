@@ -909,7 +909,6 @@ require('lazy').setup({
         'goimports',
         'gofumpt',
         'golangci-lint',
-        'golangci-lint-langserver',
         'impl',
         'gomodifytags',
         'iferr',
